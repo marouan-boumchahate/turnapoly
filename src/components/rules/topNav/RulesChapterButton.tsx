@@ -33,7 +33,7 @@ export const RulesChapterButton: React.FC<RulesChapterButtonProps> = ({
       <span className="rules-chapter-num" aria-hidden="true">
         {topic.stepNumber}
       </span>
-      <TopicIcon topicId={topic.id} size={17} />
+      <TopicIcon topicId={topic.id} size={17} className="rules-topic-icon" />
       <span className="rules-chapter-tooltip" role="tooltip">
         {topic.stepNumber} · {topic.tabLabel}
       </span>

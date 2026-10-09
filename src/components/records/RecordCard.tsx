@@ -20,11 +20,11 @@ export const RecordCard: React.FC<RecordCardProps> = ({
       className="mono-record-card"
       style={{
         display: 'flex',
-        gap: '14px',
+        gap: 'clamp(8px, 2.5vw, 14px)',
         alignItems: 'center',
         backgroundColor: 'var(--card)',
         borderRadius: '12px',
-        padding: '14px 18px',
+        padding: 'clamp(10px, 2.5vw, 14px) clamp(12px, 3vw, 18px)',
         marginTop: '10px',
         border: '1px solid var(--border)',
         boxShadow: 'var(--shadow-sm)',
@@ -36,7 +36,7 @@ export const RecordCard: React.FC<RecordCardProps> = ({
           style={{
             fontFamily: 'var(--font-heading)',
             fontWeight: 700,
-            fontSize: '18px',
+            fontSize: 'clamp(15px, 2.8vw, 18px)',
             color: 'var(--ink)',
             overflowWrap: 'anywhere',
             display: 'block',
@@ -50,7 +50,7 @@ export const RecordCard: React.FC<RecordCardProps> = ({
             color: 'var(--mute)',
             fontFamily: 'var(--font-body)',
             marginTop: '2px',
-            fontSize: '13px',
+            fontSize: 'clamp(11px, 2vw, 13px)',
           }}
         >
           {formatDisplayDateTime(record.d)}
@@ -61,10 +61,10 @@ export const RecordCard: React.FC<RecordCardProps> = ({
         style={{
           fontFamily: 'var(--font-heading)',
           fontWeight: 700,
-          fontSize: '18px',
+          fontSize: 'clamp(15px, 2.8vw, 18px)',
           color: 'var(--green)',
           backgroundColor: 'var(--green-subtle)',
-          padding: '6px 12px',
+          padding: 'clamp(4px, 1.2vw, 6px) clamp(8px, 2vw, 12px)',
           borderRadius: '8px',
           whiteSpace: 'nowrap',
           letterSpacing: '0.02em',

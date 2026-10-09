@@ -22,10 +22,11 @@ export const RentTable: React.FC = () => {
   ];
 
   return (
-    <div style={{ overflowX: 'auto', marginTop: '10px' }}>
+    <div style={{ overflowX: 'auto', marginTop: '10px', WebkitOverflowScrolling: 'touch' }}>
       <table
         style={{
           width: '100%',
+          minWidth: '460px',
           borderCollapse: 'collapse',
           fontSize: '14px',
           textAlign: 'left',

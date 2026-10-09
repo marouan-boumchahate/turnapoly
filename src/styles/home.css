@@ -128,3 +128,18 @@
   font-size: 13px;
   letter-spacing: 0.01em;
 }
+
+@media (max-width: 560px) {
+  .hero-stage {
+    height: clamp(210px, 48vw, 290px);
+  }
+  .mono-3d-board {
+    width: clamp(200px, 56vw, 290px);
+  }
+  .hero-cta-btn {
+    min-width: 100%;
+    max-width: 360px;
+    padding: 12px 20px;
+    font-size: 18px;
+  }
+}

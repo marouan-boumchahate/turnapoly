@@ -28,7 +28,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         display: 'flex',
         gap: '6px',
         alignItems: 'center',
-        padding: '8px 12px',
+        padding: '8px clamp(8px, 2vw, 16px)',
         backgroundColor: 'var(--red)',
         color: '#ffffff',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
@@ -38,7 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         style={{
           fontFamily: 'var(--font-heading)',
           fontWeight: 700,
-          fontSize: '20px',
+          fontSize: 'clamp(17px, 2.2vw, 20px)',
           marginRight: 'auto',
           letterSpacing: '0.04em',
           cursor: 'pointer',

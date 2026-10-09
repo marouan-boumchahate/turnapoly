@@ -52,13 +52,13 @@ export const Alert: React.FC<AlertProps> = ({
       role="alert"
       style={{
         borderRadius: '12px',
-        padding: '14px 18px',
+        padding: 'clamp(12px, 2.5vw, 14px) clamp(14px, 3vw, 18px)',
         marginTop: '14px',
         backgroundColor: alertStyle.bg,
         color: alertStyle.text,
         border: alertStyle.border,
         lineHeight: 1.55,
-        fontSize: '15px',
+        fontSize: 'clamp(14px, 1.8vw, 15px)',
         display: 'flex',
         flexDirection: 'column',
         gap: '4px',

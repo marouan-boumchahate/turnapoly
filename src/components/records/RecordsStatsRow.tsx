@@ -20,8 +20,8 @@ export const RecordsStatsRow: React.FC<RecordsStatsRowProps> = ({ stats }) => {
       className="stats"
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '12px',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(90px, 26vw, 160px), 1fr))',
+        gap: 'clamp(8px, 2vw, 12px)',
         margin: '18px 0',
       }}
     >

@@ -56,7 +56,7 @@ export const RecordForm: React.FC<RecordFormProps> = ({
       style={{
         backgroundColor: 'var(--card)',
         borderRadius: '14px',
-        padding: '20px',
+        padding: 'clamp(14px, 3vw, 20px)',
         display: 'grid',
         gap: '14px',
         border: '1px solid var(--border)',

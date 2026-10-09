@@ -26,7 +26,7 @@ export const Container: React.FC<ContainerProps> = ({
       style={{
         maxWidth: getMaxWidth(),
         margin: '0 auto',
-        padding: size === 'wide' ? '24px 28px 80px' : '18px 14px 60px',
+        padding: 'clamp(14px, 2.5vw, 24px) clamp(12px, 3.5vw, 24px) 80px',
         width: '100%',
         boxSizing: 'border-box',
       }}
