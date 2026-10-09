@@ -1,5 +1,10 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 
+interface Point {
+  x: number;
+  y: number;
+}
+
 interface SignaturePadProps {
   onChange: (signatureDataUrl: string | null) => void;
 }
@@ -7,9 +12,33 @@ interface SignaturePadProps {
 export const SignaturePad: React.FC<SignaturePadProps> = ({ onChange }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
+  const linesRef = useRef<Point[][]>([]);
+  const currentLineRef = useRef<Point[]>([]);
   const [hasSignature, setHasSignature] = useState(false);
 
-  // Initialize canvas coordinates with DPR scaling for retina crispness
+  const redrawCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+    ctx.lineWidth = 2.5;
+    ctx.strokeStyle = '#0f172a';
+
+    for (const line of linesRef.current) {
+      if (line.length === 0) continue;
+      ctx.beginPath();
+      ctx.moveTo(line[0].x, line[0].y);
+      for (let i = 1; i < line.length; i++) {
+        ctx.lineTo(line[i].x, line[i].y);
+      }
+      ctx.stroke();
+    }
+  }, []);
+
   const initCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -22,17 +51,13 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onChange }) => {
     const ctx = canvas.getContext('2d');
     if (ctx) {
       ctx.scale(dpr, dpr);
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.lineWidth = 2.5;
-      ctx.strokeStyle = '#0f172a';
     }
-  }, []);
+    redrawCanvas();
+  }, [redrawCanvas]);
 
   useEffect(() => {
     initCanvas();
     const handleResize = () => {
-      // Re-init canvas on window resize
       if (!isDrawingRef.current) {
         initCanvas();
       }
@@ -41,7 +66,7 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onChange }) => {
     return () => window.removeEventListener('resize', handleResize);
   }, [initCanvas]);
 
-  const getPos = (e: React.PointerEvent<HTMLCanvasElement>) => {
+  const getPos = (e: React.PointerEvent<HTMLCanvasElement>): Point => {
     const canvas = canvasRef.current;
     if (!canvas) return { x: 0, y: 0 };
     const rect = canvas.getBoundingClientRect();
@@ -52,25 +77,35 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onChange }) => {
   };
 
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
+    e.preventDefault();
     const canvas = canvasRef.current;
     if (!canvas) return;
-    canvas.setPointerCapture(e.pointerId);
+    try {
+      canvas.setPointerCapture(e.pointerId);
+    } catch {
+      // Ignored if capture unsupported
+    }
     isDrawingRef.current = true;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     const pos = getPos(e);
+    currentLineRef.current = [pos];
+
     ctx.beginPath();
     ctx.moveTo(pos.x, pos.y);
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!isDrawingRef.current) return;
+    e.preventDefault();
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
     if (!ctx) return;
 
     const pos = getPos(e);
+    currentLineRef.current.push(pos);
+
     ctx.lineTo(pos.x, pos.y);
     ctx.stroke();
 
@@ -82,20 +117,37 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onChange }) => {
   const handlePointerUp = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!isDrawingRef.current) return;
     isDrawingRef.current = false;
+    e.preventDefault();
+
     const canvas = canvasRef.current;
     if (canvas) {
-      canvas.releasePointerCapture(e.pointerId);
+      try {
+        canvas.releasePointerCapture(e.pointerId);
+      } catch {
+        // Ignored
+      }
+
+      if (currentLineRef.current.length > 0) {
+        linesRef.current.push([...currentLineRef.current]);
+        currentLineRef.current = [];
+      }
       onChange(canvas.toDataURL('image/png'));
     }
   };
 
-  const handleClear = () => {
+  const handleClear = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (ctx) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
+    linesRef.current = [];
+    currentLineRef.current = [];
     setHasSignature(false);
     onChange(null);
   };
@@ -127,7 +179,6 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onChange }) => {
           }}
         />
 
-        {/* Signature guide baseline */}
         <div
           style={{
             position: 'absolute',

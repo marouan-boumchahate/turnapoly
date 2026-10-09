@@ -3,12 +3,21 @@
     "id": 1,
     "n": "Marouan",
     "m": 3850,
-    "d": "2026-10-08T21:30:00"
+    "d": "2026-10-08T21:30:00",
+    "s": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 50' width='160' height='50'><path d='M12 38 C25 8, 35 12, 45 35 C55 15, 65 20, 75 30 Q90 10 110 32 T150 20' fill='none' stroke='%230f172a' stroke-width='2.8' stroke-linecap='round'/></svg>"
+  },
+  {
+    "id": 2,
+    "n": "Youssef",
+    "m": 2900,
+    "d": "2026-10-05T19:45:00",
+    "s": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 50' width='160' height='50'><path d='M15 15 Q25 40 38 22 Q50 8 62 30 Q80 18 100 25 T145 15' fill='none' stroke='%230f172a' stroke-width='2.8' stroke-linecap='round'/></svg>"
   },
   {
     "id": 3,
     "n": "Hamza",
     "m": 2150,
-    "d": "2026-10-02T22:00:00"
+    "d": "2026-10-02T22:00:00",
+    "s": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 160 50' width='160' height='50'><path d='M14 36 L20 12 L32 30 L40 10 Q65 35 85 20 Q105 10 148 24' fill='none' stroke='%230f172a' stroke-width='2.8' stroke-linecap='round'/></svg>"
   }
 ]

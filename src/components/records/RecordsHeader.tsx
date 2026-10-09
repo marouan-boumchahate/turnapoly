@@ -14,7 +14,7 @@ export const RecordsHeader: React.FC = () => {
         Game records
       </h2>
       <p style={{ color: 'var(--mute)', margin: '0 0 14px', fontSize: '17px' }}>
-        Add the result of every game. Saved on this device.
+        Official tournament results and leaderboard history.
       </p>
     </header>
   );

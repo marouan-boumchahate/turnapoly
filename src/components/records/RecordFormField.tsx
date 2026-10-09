@@ -7,18 +7,18 @@ interface RecordFormFieldProps {
 
 export const RecordFormField: React.FC<RecordFormFieldProps> = ({ label, children }) => {
   return (
-    <label
+    <div
       style={{
         display: 'grid',
-        gap: '4px',
+        gap: '6px',
         fontFamily: 'var(--font-heading)',
         fontWeight: 600,
         fontSize: '16px',
         color: 'var(--ink)',
       }}
     >
-      <span>{label}</span>
+      <label>{label}</label>
       {children}
-    </label>
+    </div>
   );
 };

@@ -9,7 +9,18 @@ export function useGameRecords() {
   const [games, setGames] = useState<GameRecord[]>(() => {
     const saved = loadFromStorage<GameRecord[] | null>(STORAGE_KEY_GAMES, null);
     if (saved && Array.isArray(saved) && saved.length > 0) {
-      return saved;
+      const savedIds = new Set(saved.map((g) => g.id));
+      const missingInitials = (initialRecords as GameRecord[]).filter(
+        (init) => !savedIds.has(init.id)
+      );
+      const enhancedSaved = saved.map((sRecord) => {
+        const match = (initialRecords as GameRecord[]).find((r) => r.id === sRecord.id);
+        if (match && !sRecord.s && match.s) {
+          return { ...sRecord, s: match.s };
+        }
+        return sRecord;
+      });
+      return [...enhancedSaved, ...missingInitials];
     }
     return initialRecords as GameRecord[];
   });
