@@ -7,20 +7,16 @@ import { syncRecordsToFile } from '../services/recordsSyncService';
 
 export function useGameRecords() {
   const [games, setGames] = useState<GameRecord[]>(() => {
+    if (typeof window !== 'undefined') {
+      try {
+        window.localStorage?.removeItem('mono-games');
+      } catch {
+        // Ignored
+      }
+    }
     const saved = loadFromStorage<GameRecord[] | null>(STORAGE_KEY_GAMES, null);
-    if (saved && Array.isArray(saved) && saved.length > 0) {
-      const savedIds = new Set(saved.map((g) => g.id));
-      const missingInitials = (initialRecords as GameRecord[]).filter(
-        (init) => !savedIds.has(init.id)
-      );
-      const enhancedSaved = saved.map((sRecord) => {
-        const match = (initialRecords as GameRecord[]).find((r) => r.id === sRecord.id);
-        if (match && !sRecord.s && match.s) {
-          return { ...sRecord, s: match.s };
-        }
-        return sRecord;
-      });
-      return [...enhancedSaved, ...missingInitials];
+    if (saved !== null && Array.isArray(saved)) {
+      return saved;
     }
     return initialRecords as GameRecord[];
   });
