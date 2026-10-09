@@ -5,10 +5,15 @@ import { RecordsEmptyState } from './RecordsEmptyState';
 
 interface RecordsListProps {
   games: GameRecord[];
+  isOwner?: boolean;
   onDeleteGame: (id: string | number) => void;
 }
 
-export const RecordsList: React.FC<RecordsListProps> = ({ games, onDeleteGame }) => {
+export const RecordsList: React.FC<RecordsListProps> = ({
+  games,
+  isOwner = false,
+  onDeleteGame,
+}) => {
   if (games.length === 0) {
     return <RecordsEmptyState />;
   }
@@ -21,6 +26,7 @@ export const RecordsList: React.FC<RecordsListProps> = ({ games, onDeleteGame })
         <RecordCard
           key={game.id}
           record={game}
+          isOwner={isOwner}
           accentColor="red"
           onDelete={onDeleteGame}
         />

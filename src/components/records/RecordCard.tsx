@@ -7,12 +7,14 @@ import { TwoStepDeleteButton } from './TwoStepDeleteButton';
 interface RecordCardProps {
   record: GameRecord;
   accentColor?: string;
+  isOwner?: boolean;
   onDelete: (id: string | number) => void;
 }
 
 export const RecordCard: React.FC<RecordCardProps> = ({
   record,
   accentColor: _accentColor,
+  isOwner = false,
   onDelete,
 }) => {
   return (
@@ -73,7 +75,7 @@ export const RecordCard: React.FC<RecordCardProps> = ({
         {formatCurrency(record.m)}
       </div>
 
-      <TwoStepDeleteButton onConfirmDelete={() => onDelete(record.id)} />
+      {isOwner && <TwoStepDeleteButton onConfirmDelete={() => onDelete(record.id)} />}
     </div>
   );
 };

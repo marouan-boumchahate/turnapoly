@@ -4,14 +4,19 @@ import { RecordsHeader } from './RecordsHeader';
 import { RecordForm } from './RecordForm';
 import { RecordsStatsRow } from './RecordsStatsRow';
 import { RecordsList } from './RecordsList';
+import { OwnerStatusBar } from './OwnerStatusBar';
+import { OwnerAuthModal } from './OwnerAuthModal';
 import { Toast } from '../ui/Toast';
 import { useGameRecords } from '../../hooks/useGameRecords';
 import { useGameStats } from '../../hooks/useGameStats';
+import { useOwnerAuth } from '../../hooks/useOwnerAuth';
 import { GameRecord } from '../../types/record';
 
 export const RecordsView: React.FC = () => {
   const { games, addGame, deleteGame } = useGameRecords();
   const { stats, winnerSuggestions } = useGameStats(games);
+  const { isOwner, authError, setAuthError, loginAsOwner, logoutOwner } = useOwnerAuth();
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   const showToast = (message: string) => {
@@ -21,9 +26,8 @@ export const RecordsView: React.FC = () => {
 
   const handleAddGame = (newRecord: Omit<GameRecord, 'id'>) => {
     addGame(newRecord);
-    showToast(`Game saved! Congratulations, ${newRecord.n}! 🏆`);
+    showToast(`Winner record saved! Congratulations, ${newRecord.n}! 🏆`);
 
-    // Smooth scroll to list as in original code
     setTimeout(() => {
       const listElement = document.getElementById('list');
       if (listElement) {
@@ -37,16 +41,47 @@ export const RecordsView: React.FC = () => {
     showToast('Game record deleted.');
   };
 
+  const handleAuthSubmit = (passcode: string) => {
+    if (loginAsOwner(passcode)) {
+      setIsAuthModalOpen(false);
+      showToast('Owner access granted! 👑');
+    }
+  };
+
   return (
     <Container id="records">
       <RecordsHeader />
-      <RecordForm
-        winnerSuggestions={winnerSuggestions}
-        onSubmit={handleAddGame}
+
+      <OwnerStatusBar
+        isOwner={isOwner}
+        games={games}
+        onOpenAuthModal={() => setIsAuthModalOpen(true)}
+        onLogout={() => {
+          logoutOwner();
+          showToast('Owner mode locked.');
+        }}
       />
+
+      {isOwner && (
+        <RecordForm
+          winnerSuggestions={winnerSuggestions}
+          onSubmit={handleAddGame}
+        />
+      )}
+
       <RecordsStatsRow stats={stats} />
-      <RecordsList games={games} onDeleteGame={handleDeleteGame} />
+      <RecordsList games={games} isOwner={isOwner} onDeleteGame={handleDeleteGame} />
       <Toast message={toastMessage} />
+
+      <OwnerAuthModal
+        isOpen={isAuthModalOpen}
+        error={authError}
+        onClose={() => {
+          setIsAuthModalOpen(false);
+          setAuthError(null);
+        }}
+        onSubmit={handleAuthSubmit}
+      />
     </Container>
   );
 };
