@@ -22,13 +22,13 @@ export const JailTopic: React.FC = () => {
       <Card colorVar="amber" style={{ padding: '16px 20px', marginTop: '14px' }}>
         <h4 style={{ margin: '0 0 10px', fontSize: '18px' }}>Release Protocols (Choose One)</h4>
         <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          <NumberedStep stepNumber={1} colorVar="amber">
+          <NumberedStep stepNumber={1} colorVar="slate">
             <b>Pay Fine (₼50):</b> Pay ₼50 to the Bank prior to rolling on either of your next two turns, then roll both dice and advance normally.
           </NumberedStep>
-          <NumberedStep stepNumber={2} colorVar="amber">
+          <NumberedStep stepNumber={2} colorVar="slate">
             <b>Play Escape Card:</b> Surrender an owned &ldquo;Get Out of Jail Free&rdquo; card at the start of your turn (or buy one from another player), return it face-up to its deck, then roll and advance.
           </NumberedStep>
-          <NumberedStep stepNumber={3} colorVar="amber">
+          <NumberedStep stepNumber={3} colorVar="slate">
             <b>Attempt Doubles:</b> Attempt to roll doubles on your turn. If successful, advance by that roll with no fine (your turn ends immediately; no second roll). You have up to 3 turns to attempt this; failing on the third attempt requires paying ₼50 before moving by the third roll total.
           </NumberedStep>
         </ol>

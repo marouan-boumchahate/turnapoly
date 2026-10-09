@@ -8,7 +8,7 @@ interface NumberedStepProps {
 
 export const NumberedStep: React.FC<NumberedStepProps> = ({
   stepNumber,
-  colorVar = 'var(--red)',
+  colorVar = 'slate',
   children,
 }) => {
   const dynamicColor = colorVar.startsWith('var(') ? colorVar : `var(--${colorVar})`;
@@ -22,7 +22,7 @@ export const NumberedStep: React.FC<NumberedStepProps> = ({
         padding: '10px 0',
         alignItems: 'flex-start',
         listStyle: 'none',
-        borderBottom: '1px solid rgba(0, 0, 0, 0.05)',
+        borderBottom: '1px solid var(--border)',
       }}
     >
       <span

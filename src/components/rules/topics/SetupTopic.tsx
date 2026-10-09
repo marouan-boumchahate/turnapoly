@@ -25,22 +25,22 @@ export const SetupTopic: React.FC = () => {
       <Card colorVar="green" style={{ padding: '16px 20px', marginTop: '14px' }}>
         <h4 style={{ margin: '0 0 10px', fontSize: '18px' }}>Setup Checklist</h4>
         <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          <NumberedStep stepNumber={1} colorVar="green">
+          <NumberedStep stepNumber={1} colorVar="slate">
             <b>Appoint the Banker:</b> The Banker manages the Bank&rsquo;s funds, title deeds, building reserves, and leads auctions. If the Banker also participates as a player, their personal funds must be kept strictly separated from the Bank.
           </NumberedStep>
 
-          <NumberedStep stepNumber={2} colorVar="green">
+          <NumberedStep stepNumber={2} colorVar="slate">
             <b>Distribute Starting Capital (₼1,500 per player):</b>
             <div style={{ marginTop: '8px' }}>
               <MoneyDenominations />
             </div>
           </NumberedStep>
 
-          <NumberedStep stepNumber={3} colorVar="green">
+          <NumberedStep stepNumber={3} colorVar="slate">
             <b>Prepare Card Decks:</b> Thoroughly shuffle Community Chest and Chance card decks, placing them face-down on their designated board spaces.
           </NumberedStep>
 
-          <NumberedStep stepNumber={4} colorVar="green">
+          <NumberedStep stepNumber={4} colorVar="slate">
             <b>Initial Positions:</b> Place all player tokens on the <b>GO</b> corner space. Place the two dice beside the board.
           </NumberedStep>
         </ol>

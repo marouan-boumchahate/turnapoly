@@ -34,16 +34,16 @@ export const BuildingsTopic: React.FC = () => {
         </p>
 
         <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          <NumberedStep stepNumber={1} colorVar="red">
+          <NumberedStep stepNumber={1} colorVar="slate">
             Verify every street in the color group currently possesses exactly 4 houses.
           </NumberedStep>
-          <NumberedStep stepNumber={2} colorVar="red">
+          <NumberedStep stepNumber={2} colorVar="slate">
             Pay the hotel fee printed on the Title Deed to the Bank.
           </NumberedStep>
-          <NumberedStep stepNumber={3} colorVar="red">
+          <NumberedStep stepNumber={3} colorVar="slate">
             Return all 4 houses from that street back to the Bank reserve.
           </NumberedStep>
-          <NumberedStep stepNumber={4} colorVar="red">
+          <NumberedStep stepNumber={4} colorVar="slate">
             Place the hotel on the street. (Maximum 1 hotel per property; no accompanying houses).
           </NumberedStep>
         </ol>
