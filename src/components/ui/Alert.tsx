@@ -4,6 +4,7 @@ export type AlertVariant = 'tip' | 'warn' | 'good';
 
 interface AlertProps {
   variant: AlertVariant;
+  label?: string;
   className?: string;
   children: React.ReactNode;
   style?: React.CSSProperties;
@@ -11,22 +12,39 @@ interface AlertProps {
 
 export const Alert: React.FC<AlertProps> = ({
   variant,
+  label,
   className = '',
   children,
   style,
 }) => {
-  const getColors = () => {
+  const getStyles = () => {
     switch (variant) {
       case 'tip':
-        return { bg: 'var(--tip-bg)', text: 'var(--tip-text)' };
+        return {
+          bg: 'var(--tip-bg)',
+          text: 'var(--tip-text)',
+          border: '1px solid rgba(247, 212, 20, 0.35)',
+          defaultLabel: 'NOTE',
+        };
       case 'warn':
-        return { bg: 'var(--warn-bg)', text: 'var(--warn-text)' };
+        return {
+          bg: 'var(--warn-bg)',
+          text: 'var(--warn-text)',
+          border: '1px solid rgba(214, 32, 46, 0.3)',
+          defaultLabel: 'IMPORTANT',
+        };
       case 'good':
-        return { bg: 'var(--good-bg)', text: 'var(--good-text)' };
+        return {
+          bg: 'var(--good-bg)',
+          text: 'var(--good-text)',
+          border: '1px solid rgba(31, 157, 85, 0.3)',
+          defaultLabel: 'KEY OBJECTIVE',
+        };
     }
   };
 
-  const colors = getColors();
+  const alertStyle = getStyles();
+  const displayLabel = label || alertStyle.defaultLabel;
 
   return (
     <div
@@ -34,16 +52,34 @@ export const Alert: React.FC<AlertProps> = ({
       role="alert"
       style={{
         borderRadius: '12px',
-        padding: '11px 15px',
-        marginTop: '12px',
-        fontWeight: 600,
-        backgroundColor: colors.bg,
-        color: colors.text,
-        lineHeight: 1.5,
+        padding: '14px 18px',
+        marginTop: '14px',
+        backgroundColor: alertStyle.bg,
+        color: alertStyle.text,
+        border: alertStyle.border,
+        lineHeight: 1.55,
+        fontSize: '15px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '4px',
         ...style,
       }}
     >
-      {children}
+      {displayLabel && (
+        <span
+          style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: '12px',
+            fontWeight: 700,
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            opacity: 0.9,
+          }}
+        >
+          {displayLabel}
+        </span>
+      )}
+      <div style={{ fontWeight: 600 }}>{children}</div>
     </div>
   );
 };

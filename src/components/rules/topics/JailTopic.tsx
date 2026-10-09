@@ -6,33 +6,33 @@ import { Alert } from '../../ui/Alert';
 export const JailTopic: React.FC = () => {
   return (
     <article aria-labelledby="topic-jail-title">
-      <h3 id="topic-jail-title" style={{ fontSize: '28px', margin: '6px 0 10px' }}>
-        Jail
-      </h3>
+      <div className="rules-topic-banner">
+        <h3 id="topic-jail-title" className="rules-topic-title">
+          Incarceration & Escape Options
+        </h3>
+        <p className="rules-topic-desc">
+          Player rights while in custody and the three legitimate release protocols.
+        </p>
+      </div>
 
-      <Alert variant="good">
-        In Jail you can still collect rent, join auctions, build, mortgage and make deals.
+      <Alert variant="good" label="Active Rights While Detained">
+        Being in Jail does not halt your economic power. You continue to collect rent, participate in auctions, construct buildings, mortgage properties, and trade with other players.
       </Alert>
 
-      <Card colorVar="orange" style={{ padding: '14px 18px' }}>
-        <ol style={{ listStyle: 'none', padding: 0, margin: '8px 0' }}>
+      <Card colorVar="orange" style={{ padding: '16px 20px', marginTop: '14px' }}>
+        <h4 style={{ margin: '0 0 10px', fontSize: '18px' }}>Release Protocols (Choose One)</h4>
+        <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
           <NumberedStep stepNumber={1} colorVar="orange">
-            <b>Pay ₼50</b> before rolling on your next turn, then roll and move.
+            <b>Pay Fine (₼50):</b> Pay ₼50 to the Bank prior to rolling on either of your next two turns, then roll both dice and advance normally.
           </NumberedStep>
           <NumberedStep stepNumber={2} colorVar="orange">
-            <b>Use a &ldquo;Get Out of Jail Free&rdquo; card</b> at the start of your next turn. Put
-            it face up at the bottom of its pile, then roll and move.
+            <b>Play Escape Card:</b> Surrender an owned &ldquo;Get Out of Jail Free&rdquo; card at the start of your turn (or buy one from another player), return it face-up to its deck, then roll and advance.
           </NumberedStep>
           <NumberedStep stepNumber={3} colorVar="orange">
-            <b>Roll doubles</b> on your next turn: you leave free, move that number, and your turn
-            ends. You get up to 3 tries. If you fail the third time, pay ₼50 and move by your roll.
+            <b>Attempt Doubles:</b> Attempt to roll doubles on your turn. If successful, advance by that roll with no fine (your turn ends immediately; no second roll). You have up to 3 turns to attempt this; failing on the third attempt requires paying ₼50 before moving by the third roll total.
           </NumberedStep>
         </ol>
       </Card>
-
-      <p style={{ color: 'var(--mute)', margin: '10px 0 0', fontSize: '15px' }}>
-        These are three different options. Choose one.
-      </p>
     </article>
   );
 };

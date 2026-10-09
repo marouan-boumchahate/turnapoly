@@ -20,12 +20,14 @@ export const Card: React.FC<CardProps> = ({
       className={`mono-card ${className}`}
       style={{
         backgroundColor: 'var(--card)',
-        borderRadius: '14px',
-        padding: '14px 18px',
+        borderRadius: '12px',
+        padding: '16px 20px',
         marginTop: '12px',
-        borderLeft: `8px solid ${dynamicColor}`,
-        boxShadow: 'var(--shadow-sm)',
+        border: '1px solid var(--border)',
+        borderLeft: `4px solid ${dynamicColor}`,
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
         color: 'var(--ink)',
+        transition: 'border-color var(--transition-fast), box-shadow var(--transition-fast)',
         ...style,
       }}
     >

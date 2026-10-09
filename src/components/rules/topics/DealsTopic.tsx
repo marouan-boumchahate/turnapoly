@@ -4,32 +4,37 @@ import { Card } from '../../ui/Card';
 export const DealsTopic: React.FC = () => {
   return (
     <article aria-labelledby="topic-deals-title">
-      <h3 id="topic-deals-title" style={{ fontSize: '28px', margin: '6px 0 10px' }}>
-        Deals and trades
-      </h3>
+      <div className="rules-topic-banner">
+        <h3 id="topic-deals-title" className="rules-topic-title">
+          Negotiations & Asset Transfers
+        </h3>
+        <p className="rules-topic-desc">
+          Official protocols for private player transactions and transferring encumbered properties.
+        </p>
+      </div>
 
       <Card colorVar="yellow">
-        <ul style={{ margin: '6px 0' }}>
+        <h4 style={{ margin: '0 0 8px', fontSize: '18px' }}>Trade Guidelines</h4>
+        <ul style={{ margin: 0, paddingLeft: '20px', display: 'grid', gap: '6px', fontSize: '15px' }}>
           <li>
-            Any time, buy, sell or swap properties and &ldquo;Get Out of Jail Free&rdquo; cards
-            with other players.
-          </li>
-          <li>Trade for profit, never out of kindness. No loans.</li>
-          <li>
-            Pay with cash, properties, a Jail card, or a mix. You agree the value together.
+            <b>Permitted Assets:</b> Players may freely buy, sell, or trade unimproved properties and &ldquo;Get Out of Jail Free&rdquo; cards at any point between turns.
           </li>
           <li>
-            If a color set has buildings, sell them to the bank before trading any street of that
-            set.
+            <b>Terms of Settlement:</b> Transactions may consist of cash, properties, cards, or combinations agreed mutually by both parties.
+          </li>
+          <li>
+            <b>Prohibition on Immunity:</b> Agreements offering immunity from future rent or deferred debt are strictly void under official rules.
+          </li>
+          <li>
+            <b>Pre-Sale Building Liquidation:</b> If any street in a color group has houses or hotels, all buildings in that set must be sold back to the Bank before any property of that group may be traded.
           </li>
         </ul>
       </Card>
 
-      <Card colorVar="yellow">
-        <h4 style={{ margin: '0 0 4px', fontSize: '20px' }}>Mortgaged property</h4>
-        <p style={{ margin: '6px 0' }}>
-          It can be traded at the agreed price. The new owner either (a) pays the mortgage-lifting
-          cost to the bank right away, or (b) waits and lifts it on a later turn.
+      <Card colorVar="yellow" style={{ marginTop: '14px' }}>
+        <h4 style={{ margin: '0 0 6px', fontSize: '18px' }}>Transferring Mortgaged Properties</h4>
+        <p style={{ margin: 0, fontSize: '15px', color: 'var(--mute)', lineHeight: 1.5 }}>
+          Mortgaged deeds may be traded between players at whatever price is agreed upon. The new owner must immediately pay the Bank 10% interest on the mortgage value, and may either unmortgage the property immediately by paying the full principal, or hold it mortgaged and pay another 10% penalty when lifting it later.
         </p>
       </Card>
     </article>

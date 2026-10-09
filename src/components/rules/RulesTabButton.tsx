@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { RuleTopicInfo } from '../../types/ruleTopic';
+import { TopicIcon } from './icons/TopicIcon';
 
 interface RulesTabButtonProps {
   topic: RuleTopicInfo;
@@ -13,7 +14,6 @@ export const RulesTabButton: React.FC<RulesTabButtonProps> = ({
   onSelect,
 }) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const color = `var(--${topic.colorVar})`;
 
   useEffect(() => {
     if (isActive && buttonRef.current) {
@@ -25,35 +25,33 @@ export const RulesTabButton: React.FC<RulesTabButtonProps> = ({
     }
   }, [isActive]);
 
-  const getTextColor = () => {
-    if (!isActive) return 'var(--ink)';
-    if (topic.isYellowText) return '#222222';
-    return '#ffffff';
-  };
-
   return (
     <button
       ref={buttonRef}
       type="button"
       onClick={onSelect}
-      className={`mono-rules-tab ${isActive ? 'on' : ''}`}
+      className={`mono-rules-tab ${isActive ? 'active' : ''}`}
       style={{
         flex: 'none',
-        border: 0,
-        borderRadius: '99px',
-        padding: '7px 14px',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '8px',
+        borderRadius: '10px',
+        padding: '8px 16px',
         fontFamily: 'var(--font-heading)',
         fontWeight: 600,
-        fontSize: '15px',
-        backgroundColor: isActive ? color : 'var(--card)',
-        color: getTextColor(),
-        boxShadow: `inset 0 0 0 2px ${color}`,
+        fontSize: '14px',
+        backgroundColor: isActive ? 'var(--red)' : 'var(--card)',
+        color: isActive ? '#ffffff' : 'var(--ink)',
+        border: isActive ? '1px solid var(--red)' : '1px solid var(--border)',
+        boxShadow: isActive ? '0 2px 6px rgba(214, 32, 46, 0.25)' : 'none',
         cursor: 'pointer',
         transition: 'all var(--transition-fast)',
         whiteSpace: 'nowrap',
       }}
     >
-      {topic.tabLabel}
+      <TopicIcon topicId={topic.id} size={15} />
+      <span>{topic.tabLabel}</span>
     </button>
   );
 };
