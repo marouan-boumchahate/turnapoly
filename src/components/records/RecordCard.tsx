@@ -3,6 +3,7 @@ import { GameRecord } from '../../types/record';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { formatDisplayDateTime } from '../../utils/dateUtils';
 import { TwoStepDeleteButton } from './TwoStepDeleteButton';
+import { RecordSignatureBadge } from './RecordSignatureBadge';
 
 interface RecordCardProps {
   record: GameRecord;
@@ -74,6 +75,13 @@ export const RecordCard: React.FC<RecordCardProps> = ({
       >
         {formatCurrency(record.m)}
       </div>
+
+      {record.s && (
+        <RecordSignatureBadge
+          signatureUrl={record.s}
+          winnerName={record.n}
+        />
+      )}
 
       {isOwner && <TwoStepDeleteButton onConfirmDelete={() => onDelete(record.id)} />}
     </div>

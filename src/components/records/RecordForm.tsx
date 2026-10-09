@@ -3,6 +3,7 @@ import { GameRecord } from '../../types/record';
 import { getNowLocalISOString } from '../../utils/dateUtils';
 import { RecordFormField } from './RecordFormField';
 import { PlayerAutocomplete } from './PlayerAutocomplete';
+import { SignaturePad } from './SignaturePad';
 
 interface RecordFormProps {
   winnerSuggestions: string[];
@@ -16,6 +17,7 @@ export const RecordForm: React.FC<RecordFormProps> = ({
   const [name, setName] = useState('');
   const [cash, setCash] = useState('');
   const [dateTime, setDateTime] = useState(getNowLocalISOString);
+  const [signature, setSignature] = useState<string | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,10 +32,12 @@ export const RecordForm: React.FC<RecordFormProps> = ({
       n: trimmedName,
       m: parsedCash,
       d: dateTime,
+      ...(signature ? { s: signature } : {}),
     });
 
     setName('');
     setCash('');
+    setSignature(null);
     setDateTime(getNowLocalISOString());
   };
 
@@ -101,6 +105,10 @@ export const RecordForm: React.FC<RecordFormProps> = ({
           onChange={(e) => setDateTime(e.target.value)}
           style={inputStyle}
         />
+      </RecordFormField>
+
+      <RecordFormField label="Winner's Signature (Optional)">
+        <SignaturePad onChange={setSignature} />
       </RecordFormField>
 
       <button
