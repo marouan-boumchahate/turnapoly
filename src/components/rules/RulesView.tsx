@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container } from '../layout/Container';
-import { RulesHeader } from './RulesHeader';
 import { RulesSidebar } from './RulesSidebar';
 import { RulesTabsBar } from './RulesTabsBar';
 import { RulesTopicRenderer } from './RulesTopicRenderer';
@@ -19,8 +18,6 @@ export const RulesView: React.FC = () => {
 
   return (
     <Container id="rules" size="wide">
-      <RulesHeader />
-
       <ProgressBar
         current={activeIndex}
         total={RULES_TOPICS.length}
