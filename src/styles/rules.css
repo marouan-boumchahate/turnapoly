@@ -1,32 +1,183 @@
-/* Rules Wide Layout Styles */
-.rules-layout-grid {
+/* Rules Top Navigation Styles */
+.rules-top-nav-bar {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + 52px);
+  z-index: 30;
+  background-color: var(--bg);
+  padding: 12px 0 14px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border);
   display: flex;
-  gap: 28px;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.rules-chapter-scroll-track {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
   width: 100%;
+  overflow-x: auto;
+  padding: 6px 4px 10px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.rules-main-content {
-  flex: 1;
-  min-width: 0;
-  width: 100%;
-}
-
-.rules-mobile-tabs-container {
-  display: block;
-}
-
-.rules-desktop-sidebar {
+.rules-chapter-scroll-track::-webkit-scrollbar {
   display: none;
 }
 
-@media (min-width: 960px) {
-  .rules-mobile-tabs-container {
-    display: none;
+@media (min-width: 768px) {
+  .rules-chapter-scroll-track {
+    justify-content: center;
   }
-  .rules-desktop-sidebar {
-    display: flex;
-  }
+}
+
+/* Chapter Button with Number and Icon */
+.rules-chapter-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 40px;
+  padding: 0 13px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background-color: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 13px;
+  transition: background-color var(--transition-fast),
+              border-color var(--transition-fast),
+              color var(--transition-fast),
+              transform var(--transition-fast),
+              box-shadow var(--transition-fast);
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.rules-chapter-btn:hover {
+  background-color: var(--red-subtle);
+  border-color: var(--red);
+  color: var(--red);
+  transform: translateY(-2px);
+  box-shadow: 0 3px 10px rgba(214, 32, 46, 0.15);
+}
+
+.rules-chapter-btn:hover .rules-chapter-num {
+  color: var(--red);
+}
+
+.rules-chapter-btn.active {
+  background-color: var(--red);
+  border-color: var(--red);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(214, 32, 46, 0.28);
+}
+
+.rules-chapter-btn.active .rules-chapter-num {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.rules-chapter-num {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--mute);
+  transition: color var(--transition-fast);
+}
+
+/* Tooltip with Chapter Name: Fades in on hover, fades out on leave */
+.rules-chapter-tooltip {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background-color: #1e293b;
+  color: #ffffff;
+  border: 1px solid #334155;
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 60;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.22s;
+}
+
+.rules-chapter-tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #1e293b transparent;
+}
+
+.rules-chapter-btn:hover .rules-chapter-tooltip,
+.rules-chapter-btn:focus-visible .rules-chapter-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Active Indicator Tracker */
+.rules-chapter-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  color: var(--mute);
+  transition: color var(--transition-fast);
+}
+
+.rules-chapter-indicator.hovered {
+  color: var(--red);
+}
+
+.rules-indicator-label {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.rules-indicator-divider {
+  opacity: 0.4;
+}
+
+.rules-indicator-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ink);
+  transition: color var(--transition-fast);
+}
+
+.rules-chapter-indicator.hovered .rules-indicator-title {
+  color: var(--red);
+}
+
+/* Topic Banner & Content */
+.rules-content-section {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .rules-topic-banner {
