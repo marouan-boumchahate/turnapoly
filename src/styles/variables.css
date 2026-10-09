@@ -1,0 +1,91 @@
+:root {
+  --bg: #f3f8f5;
+  --card: #ffffff;
+  --ink: #1d2a2a;
+  --mute: #556666;
+  --border: #e0e8e4;
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 12px 28px rgba(0, 0, 0, 0.15);
+
+  /* Monopoly Brand & Category Colors */
+  --red: #d6202e;
+  --red-hover: #b51a26;
+  --brown: #8b5a3c;
+  --sky: #8ec9ee;
+  --pink: #c2338a;
+  --orange: #f08a24;
+  --yellow: #f7d414;
+  --green: #1f9d55;
+  --blue: #2457c5;
+
+  /* Semantic UI Colors */
+  --tip-bg: #fff3a8;
+  --tip-text: #4a3d00;
+  --warn-bg: #ffd9d6;
+  --warn-text: #7a1410;
+  --good-bg: #d3f1de;
+  --good-text: #0d4a28;
+
+  /* Typography */
+  --font-heading: 'Fredoka', system-ui, sans-serif;
+  --font-body: 'Nunito', system-ui, sans-serif;
+
+  /* Radii & Transitions */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101a18;
+    --card: #18282a;
+    --ink: #eaf3ef;
+    --mute: #9db3ad;
+    --border: #243a3d;
+    --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --tip-bg: #3d3408;
+    --tip-text: #faeb8a;
+    --warn-bg: #3d1414;
+    --warn-text: #fca8a4;
+    --good-bg: #0f361f;
+    --good-text: #a8ebd1;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #101a18;
+  --card: #18282a;
+  --ink: #eaf3ef;
+  --mute: #9db3ad;
+  --border: #243a3d;
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --tip-bg: #3d3408;
+  --tip-text: #faeb8a;
+  --warn-bg: #3d1414;
+  --warn-text: #fca8a4;
+  --good-bg: #0f361f;
+  --good-text: #a8ebd1;
+}
+
+:root[data-theme="light"] {
+  --bg: #f3f8f5;
+  --card: #ffffff;
+  --ink: #1d2a2a;
+  --mute: #556666;
+  --border: #e0e8e4;
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --tip-bg: #fff3a8;
+  --tip-text: #4a3d00;
+  --warn-bg: #ffd9d6;
+  --warn-text: #7a1410;
+  --good-bg: #d3f1de;
+  --good-text: #0d4a28;
+}
