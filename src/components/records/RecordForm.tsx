@@ -18,6 +18,7 @@ export const RecordForm: React.FC<RecordFormProps> = ({
   const [cash, setCash] = useState('');
   const [dateTime, setDateTime] = useState(getNowLocalISOString);
   const [signature, setSignature] = useState<string | null>(null);
+  const [signatureKey, setSignatureKey] = useState(0);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,6 +39,7 @@ export const RecordForm: React.FC<RecordFormProps> = ({
     setName('');
     setCash('');
     setSignature(null);
+    setSignatureKey((k) => k + 1);
     setDateTime(getNowLocalISOString());
   };
 
@@ -108,7 +110,11 @@ export const RecordForm: React.FC<RecordFormProps> = ({
       </RecordFormField>
 
       <RecordFormField label="Winner's Signature (Optional)">
-        <SignaturePad onChange={setSignature} />
+        <SignaturePad
+          key={signatureKey}
+          value={signature}
+          onChange={setSignature}
+        />
       </RecordFormField>
 
       <button

@@ -6,10 +6,11 @@ interface Point {
 }
 
 interface SignaturePadProps {
+  value?: string | null;
   onChange: (signatureDataUrl: string | null) => void;
 }
 
-export const SignaturePad: React.FC<SignaturePadProps> = ({ onChange }) => {
+export const SignaturePad: React.FC<SignaturePadProps> = ({ value, onChange }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const isDrawingRef = useRef(false);
   const linesRef = useRef<Point[][]>([]);
@@ -135,7 +136,7 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onChange }) => {
     }
   };
 
-  const handleClear = (e?: React.MouseEvent) => {
+  const handleClear = useCallback((e?: React.MouseEvent) => {
     if (e) {
       e.preventDefault();
       e.stopPropagation();
@@ -150,7 +151,13 @@ export const SignaturePad: React.FC<SignaturePadProps> = ({ onChange }) => {
     currentLineRef.current = [];
     setHasSignature(false);
     onChange(null);
-  };
+  }, [onChange]);
+
+  useEffect(() => {
+    if (value === null && (hasSignature || linesRef.current.length > 0)) {
+      handleClear();
+    }
+  }, [value, hasSignature, handleClear]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
