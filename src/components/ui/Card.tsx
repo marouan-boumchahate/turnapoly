@@ -8,13 +8,11 @@ interface CardProps {
 }
 
 export const Card: React.FC<CardProps> = ({
-  colorVar = 'var(--red)',
+  colorVar: _colorVar,
   className = '',
   children,
   style,
 }) => {
-  const dynamicColor = colorVar.startsWith('var(') ? colorVar : `var(--${colorVar})`;
-
   return (
     <div
       className={`mono-card ${className}`}
@@ -24,7 +22,6 @@ export const Card: React.FC<CardProps> = ({
         padding: '16px 20px',
         marginTop: '12px',
         border: '1px solid var(--border)',
-        borderLeft: `4px solid ${dynamicColor}`,
         boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
         color: 'var(--ink)',
         transition: 'border-color var(--transition-fast), box-shadow var(--transition-fast)',

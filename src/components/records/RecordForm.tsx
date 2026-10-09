@@ -60,7 +60,6 @@ export const RecordForm: React.FC<RecordFormProps> = ({
         display: 'grid',
         gap: '14px',
         border: '1px solid var(--border)',
-        borderTop: '4px solid var(--red)',
         boxShadow: 'var(--shadow-sm)',
       }}
     >

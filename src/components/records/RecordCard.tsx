@@ -12,7 +12,7 @@ interface RecordCardProps {
 
 export const RecordCard: React.FC<RecordCardProps> = ({
   record,
-  accentColor = 'red',
+  accentColor: _accentColor,
   onDelete,
 }) => {
   return (
@@ -27,7 +27,6 @@ export const RecordCard: React.FC<RecordCardProps> = ({
         padding: '14px 18px',
         marginTop: '10px',
         border: '1px solid var(--border)',
-        borderLeft: `4px solid var(--${accentColor})`,
         boxShadow: 'var(--shadow-sm)',
         transition: 'border-color var(--transition-fast)',
       }}
