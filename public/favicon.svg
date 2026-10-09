@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e83845" />
+      <stop offset="100%" stop-color="#b81422" />
+    </linearGradient>
+    <linearGradient id="hatGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#333333" />
+      <stop offset="25%" stop-color="#1f1f1f" />
+      <stop offset="100%" stop-color="#111111" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#000000" flood-opacity="0.35" />
+    </filter>
+  </defs>
+
+  <!-- Monopoly Red Squircle Badge -->
+  <rect width="64" height="64" rx="16" fill="url(#bgGrad)" />
+  <!-- White Inner Border -->
+  <rect x="2.5" y="2.5" width="59" height="59" rx="13.5" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.95" />
+
+  <!-- Iconic Monopoly Top Hat -->
+  <g filter="url(#shadow)">
+    <!-- Brim -->
+    <ellipse cx="32" cy="47" rx="22" ry="5.5" fill="#141414" />
+    <ellipse cx="32" cy="46.2" rx="20.5" ry="4.8" fill="#222222" />
+
+    <!-- Hat Cylinder Body -->
+    <path d="M19.5 45.5 L17.5 19 Q17.5 16 32 16 Q46.5 16 46.5 19 L44.5 45.5 Z" fill="url(#hatGrad)" />
+
+    <!-- Hat Top Crown -->
+    <ellipse cx="32" cy="18.5" rx="14.5" ry="3.8" fill="#383838" />
+
+    <!-- Ribbon Underlay (White contrast border) -->
+    <path d="M19 38 H45 V45 H19 Z" fill="#ffffff" />
+    <!-- Bright Red Monopoly Ribbon -->
+    <path d="M19.3 38.6 H44.7 V44.4 H19.3 Z" fill="#e82030" />
+
+    <!-- Silver/White Ribbon Buckle -->
+    <rect x="29" y="37.5" width="6" height="7.5" rx="1" fill="#ffffff" />
+    <rect x="30.2" y="38.7" width="3.6" height="5.1" rx="0.5" fill="#181818" />
+
+    <!-- Subtle vertical sheen highlight -->
+    <path d="M21.5 20.5 L23 44" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round" opacity="0.3" />
+  </g>
+</svg>
