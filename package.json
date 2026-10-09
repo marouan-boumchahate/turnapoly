@@ -10,6 +10,7 @@
     "start": "vite"
   },
   "dependencies": {
+    "@vercel/blob": "^2.8.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },
@@ -21,4 +22,3 @@
     "vite": "^8.3.4"
   }
 }
-

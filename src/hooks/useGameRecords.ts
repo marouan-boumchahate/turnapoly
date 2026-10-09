@@ -3,17 +3,10 @@ import initialRecords from '../data/gameRecords.json';
 import { STORAGE_KEY_GAMES } from '../constants/storageKeys';
 import { GameRecord } from '../types/record';
 import { loadFromStorage, saveToStorage } from '../utils/storage';
-import { syncRecordsToFile } from '../services/recordsSyncService';
+import { fetchCloudRecords, syncRecordsToFile } from '../services/recordsSyncService';
 
 export function useGameRecords() {
   const [games, setGames] = useState<GameRecord[]>(() => {
-    if (typeof window !== 'undefined') {
-      try {
-        window.localStorage?.removeItem('mono-games');
-      } catch {
-        // Ignored
-      }
-    }
     const saved = loadFromStorage<GameRecord[] | null>(STORAGE_KEY_GAMES, null);
     if (saved !== null && Array.isArray(saved)) {
       return saved;
@@ -21,6 +14,20 @@ export function useGameRecords() {
     return initialRecords as GameRecord[];
   });
 
+  // Fetch shared cloud records on initial load from any device
+  useEffect(() => {
+    let isMounted = true;
+    fetchCloudRecords().then((cloudRecords) => {
+      if (isMounted && cloudRecords !== null) {
+        setGames(cloudRecords);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Sync to local storage and remote cloud storage on changes
   useEffect(() => {
     saveToStorage(STORAGE_KEY_GAMES, games);
     syncRecordsToFile(games);

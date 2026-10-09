@@ -3,6 +3,7 @@ import {
   DEFAULT_OWNER_HASH,
   OPTIONAL_PLAINTEXT_PASSCODE,
   STORAGE_KEY_OWNER_AUTH,
+  STORAGE_KEY_OWNER_TOKEN,
 } from '../constants/ownerAuth';
 import { computeSha256 } from '../utils/crypto';
 import { loadFromStorage, saveToStorage } from '../utils/storage';
@@ -30,6 +31,7 @@ export function useOwnerAuth() {
         setIsOwner(true);
         setAuthError(null);
         saveToStorage(STORAGE_KEY_OWNER_AUTH, true);
+        saveToStorage(STORAGE_KEY_OWNER_TOKEN, trimmed);
         return true;
       }
     } catch {
@@ -37,6 +39,7 @@ export function useOwnerAuth() {
         setIsOwner(true);
         setAuthError(null);
         saveToStorage(STORAGE_KEY_OWNER_AUTH, true);
+        saveToStorage(STORAGE_KEY_OWNER_TOKEN, trimmed);
         return true;
       }
     }
@@ -49,6 +52,7 @@ export function useOwnerAuth() {
     setIsOwner(false);
     setAuthError(null);
     saveToStorage(STORAGE_KEY_OWNER_AUTH, false);
+    saveToStorage(STORAGE_KEY_OWNER_TOKEN, null);
   }, []);
 
   return { isOwner, authError, setAuthError, loginAsOwner, logoutOwner };

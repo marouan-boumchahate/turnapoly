@@ -1,19 +1,35 @@
 import { GameRecord } from '../types/record';
+import { STORAGE_KEY_OWNER_TOKEN } from '../constants/ownerAuth';
+import { loadFromStorage } from '../utils/storage';
+
+export async function fetchCloudRecords(): Promise<GameRecord[] | null> {
+  try {
+    const res = await fetch('/api/records', { cache: 'no-store' });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return Array.isArray(data) ? data : null;
+  } catch {
+    return null;
+  }
+}
 
 export async function syncRecordsToFile(records: GameRecord[]): Promise<boolean> {
-  if (import.meta.env.DEV) {
-    try {
-      const response = await fetch('/api/save-records', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(records),
-      });
-      return response.ok;
-    } catch {
-      return false;
+  try {
+    const token = loadFromStorage<string | null>(STORAGE_KEY_OWNER_TOKEN, null);
+    const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
     }
+
+    const response = await fetch('/api/records', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify(records),
+    });
+    return response.ok;
+  } catch {
+    return false;
   }
-  return false;
 }
 
 export function downloadRecordsJson(records: GameRecord[]) {

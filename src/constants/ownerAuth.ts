@@ -8,3 +8,4 @@ export const OPTIONAL_PLAINTEXT_PASSCODE =
   (import.meta.env.VITE_OWNER_PASSCODE as string) || '';
 
 export const STORAGE_KEY_OWNER_AUTH = 'mono_owner_authenticated_v1';
+export const STORAGE_KEY_OWNER_TOKEN = 'mono_owner_token_v1';
