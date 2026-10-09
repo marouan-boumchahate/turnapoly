@@ -4,35 +4,25 @@
   top: calc(env(safe-area-inset-top, 0px) + 52px);
   z-index: 30;
   background-color: var(--bg);
-  padding: 12px 0 14px;
+  padding: 18px 8px 14px;
   margin-bottom: 20px;
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
   align-items: center;
+  overflow: visible;
 }
 
-.rules-chapter-scroll-track {
+.rules-chapter-track {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
+  justify-content: center;
+  gap: 6px;
   width: 100%;
-  overflow-x: auto;
-  padding: 6px 4px 10px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.rules-chapter-scroll-track::-webkit-scrollbar {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .rules-chapter-scroll-track {
-    justify-content: center;
-  }
+  max-width: 600px;
+  overflow: visible;
+  padding: 4px 0;
 }
 
 /* Chapter Button with Number and Icon */
@@ -41,10 +31,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
-  height: 40px;
-  padding: 0 13px;
-  border-radius: 10px;
+  gap: 6px;
+  height: 38px;
+  padding: 0 10px;
+  border-radius: 9px;
   border: 1px solid var(--border);
   background-color: var(--card);
   color: var(--ink);
@@ -58,8 +48,10 @@
               color var(--transition-fast),
               transform var(--transition-fast),
               box-shadow var(--transition-fast);
-  flex-shrink: 0;
+  flex: 1 1 0;
+  max-width: 62px;
   user-select: none;
+  overflow: visible;
 }
 
 .rules-chapter-btn:hover {
@@ -88,45 +80,45 @@
 .rules-chapter-num {
   font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   color: var(--mute);
   transition: color var(--transition-fast);
 }
 
-/* Tooltip with Chapter Name: Fades in on hover, fades out on leave */
+/* Tooltip positioned ABOVE button with zero overflow clipping */
 .rules-chapter-tooltip {
   position: absolute;
-  top: calc(100% + 8px);
+  bottom: calc(100% + 9px);
   left: 50%;
   transform: translateX(-50%) translateY(4px);
-  background-color: #1e293b;
+  background-color: #0f172a;
   color: #ffffff;
   border: 1px solid #334155;
   font-family: var(--font-heading);
   font-size: 12px;
   font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 8px;
+  padding: 5px 11px;
+  border-radius: 7px;
   white-space: nowrap;
   pointer-events: none;
-  z-index: 60;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+  z-index: 70;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              visibility 0.22s;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+              visibility 0.2s;
 }
 
-.rules-chapter-tooltip::before {
+.rules-chapter-tooltip::after {
   content: '';
   position: absolute;
-  bottom: 100%;
+  top: 100%;
   left: 50%;
   transform: translateX(-50%);
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent #1e293b transparent;
+  border-color: #0f172a transparent transparent transparent;
 }
 
 .rules-chapter-btn:hover .rules-chapter-tooltip,
@@ -136,15 +128,18 @@
   transform: translateX(-50%) translateY(0);
 }
 
-/* Active Indicator Tracker */
+/* Active Indicator Tracker below buttons */
 .rules-chapter-indicator {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   font-family: var(--font-heading);
   font-size: 13px;
   color: var(--mute);
   transition: color var(--transition-fast);
+  text-align: center;
+  min-height: 24px;
 }
 
 .rules-chapter-indicator.hovered {
@@ -198,4 +193,23 @@
   color: var(--mute);
   margin: 0;
   line-height: 1.5;
+}
+
+/* Mobile responsive sizing */
+@media (max-width: 480px) {
+  .rules-chapter-track {
+    gap: 4px;
+  }
+  .rules-chapter-btn {
+    height: 35px;
+    padding: 0 4px;
+    gap: 3px;
+    font-size: 11px;
+  }
+  .rules-chapter-num {
+    font-size: 10px;
+  }
+  .rules-indicator-title {
+    font-size: 12px;
+  }
 }

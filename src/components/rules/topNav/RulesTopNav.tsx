@@ -21,7 +21,7 @@ export const RulesTopNav: React.FC<RulesTopNavProps> = ({
 
   return (
     <nav className="rules-top-nav-bar" aria-label="Rulebook chapters sequence">
-      <div className="rules-chapter-scroll-track" role="tablist">
+      <div className="rules-chapter-track" role="tablist">
         {topics.map((topic, index) => (
           <RulesChapterButton
             key={topic.id}
