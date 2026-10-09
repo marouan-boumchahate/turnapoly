@@ -15,7 +15,7 @@ export const RULES_TOPICS: RuleTopicInfo[] = [
     tabLabel: 'Game Setup',
     title: 'Board Setup & Starting Capital',
     description: 'Banker responsibilities, card preparation, and initial capital distribution.',
-    colorVar: 'green',
+    colorVar: 'red',
   },
   {
     id: 'turn',
@@ -23,7 +23,7 @@ export const RULES_TOPICS: RuleTopicInfo[] = [
     tabLabel: 'Turn Sequence',
     title: 'Turn Structure & Dice Mechanics',
     description: 'Rolling procedures, clockwise movement, and doubles consequences.',
-    colorVar: 'blue',
+    colorVar: 'red',
   },
   {
     id: 'properties',
@@ -31,7 +31,7 @@ export const RULES_TOPICS: RuleTopicInfo[] = [
     tabLabel: 'Properties & Rent',
     title: 'Property Acquisitions & Auctions',
     description: 'Title deeds, mandatory public auctions, and rent collection protocols.',
-    colorVar: 'brown',
+    colorVar: 'red',
   },
   {
     id: 'spaces',
@@ -39,7 +39,7 @@ export const RULES_TOPICS: RuleTopicInfo[] = [
     tabLabel: 'Action Spaces',
     title: 'Special Board Spaces & Events',
     description: 'GO bonuses, tax assessments, Free Parking rules, and card draws.',
-    colorVar: 'sky',
+    colorVar: 'red',
   },
   {
     id: 'jail',
@@ -47,7 +47,7 @@ export const RULES_TOPICS: RuleTopicInfo[] = [
     tabLabel: 'Jail Protocols',
     title: 'Incarceration & Escape Options',
     description: 'Active rights while detained and the three legitimate methods to exit.',
-    colorVar: 'orange',
+    colorVar: 'red',
   },
   {
     id: 'buildings',
@@ -55,7 +55,7 @@ export const RULES_TOPICS: RuleTopicInfo[] = [
     tabLabel: 'Houses & Hotels',
     title: 'Building Upgrades & Development',
     description: 'Even building regulations, hotel conversions, and housing shortages.',
-    colorVar: 'pink',
+    colorVar: 'red',
   },
   {
     id: 'deals',
@@ -63,7 +63,7 @@ export const RULES_TOPICS: RuleTopicInfo[] = [
     tabLabel: 'Trading & Deals',
     title: 'Negotiations & Asset Transfers',
     description: 'Official trading guidelines and transferring mortgaged properties.',
-    colorVar: 'yellow',
+    colorVar: 'red',
   },
   {
     id: 'no-money',

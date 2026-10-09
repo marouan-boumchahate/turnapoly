@@ -81,10 +81,11 @@ export const RulesBottomNav: React.FC<RulesBottomNavProps> = ({
           fontWeight: 600,
           fontSize: '13px',
           color: 'var(--mute)',
-          backgroundColor: 'rgba(0, 0, 0, 0.04)',
+          backgroundColor: 'var(--card-subtle)',
           padding: '6px 14px',
           borderRadius: '99px',
           letterSpacing: '0.04em',
+          border: '1px solid var(--border)',
         }}
       >
         Topic {currentIndex + 1} of {totalTopics}

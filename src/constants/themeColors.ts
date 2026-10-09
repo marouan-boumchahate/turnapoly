@@ -1,12 +1,10 @@
+// Standardized record accent colors (Monopoly brand red and emerald cash green)
 export const RECORD_BORDER_COLORS: string[] = [
   'red',
-  'blue',
   'green',
-  'orange',
-  'pink',
-  'brown',
 ];
 
+// 3D Monopoly board perimeter property bands
 export const BOARD_COLOR_MAP: Record<number, string> = {
   1: 'brown',
   3: 'brown',

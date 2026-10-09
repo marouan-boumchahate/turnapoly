@@ -15,7 +15,7 @@ export const BuildingsTopic: React.FC = () => {
         </p>
       </div>
 
-      <Card colorVar="pink">
+      <Card colorVar="green">
         <h4 style={{ margin: '0 0 8px', fontSize: '18px' }}>House Construction Rules</h4>
         <ul style={{ margin: 0, paddingLeft: '20px', display: 'grid', gap: '6px', fontSize: '15px' }}>
           <li>You must own all title deeds in a complete color group (building may occur at any time, even on opponents&rsquo; turns).</li>
@@ -27,29 +27,29 @@ export const BuildingsTopic: React.FC = () => {
         </Alert>
       </Card>
 
-      <Card colorVar="pink" style={{ marginTop: '14px' }}>
+      <Card colorVar="red" style={{ marginTop: '14px' }}>
         <h4 style={{ margin: '0 0 8px', fontSize: '18px' }}>Hotel Upgrade Conversion</h4>
         <p style={{ margin: '0 0 10px', fontSize: '15px', color: 'var(--mute)' }}>
           Hotels represent the maximum tier of development. A hotel replaces the 4 existing houses on that street.
         </p>
 
         <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          <NumberedStep stepNumber={1} colorVar="pink">
+          <NumberedStep stepNumber={1} colorVar="red">
             Verify every street in the color group currently possesses exactly 4 houses.
           </NumberedStep>
-          <NumberedStep stepNumber={2} colorVar="pink">
+          <NumberedStep stepNumber={2} colorVar="red">
             Pay the hotel fee printed on the Title Deed to the Bank.
           </NumberedStep>
-          <NumberedStep stepNumber={3} colorVar="pink">
+          <NumberedStep stepNumber={3} colorVar="red">
             Return all 4 houses from that street back to the Bank reserve.
           </NumberedStep>
-          <NumberedStep stepNumber={4} colorVar="pink">
+          <NumberedStep stepNumber={4} colorVar="red">
             Place the hotel on the street. (Maximum 1 hotel per property; no accompanying houses).
           </NumberedStep>
         </ol>
       </Card>
 
-      <Card colorVar="pink" style={{ marginTop: '14px' }}>
+      <Card colorVar="slate" style={{ marginTop: '14px' }}>
         <h4 style={{ margin: '0 0 6px', fontSize: '18px' }}>Bank Housing Shortages</h4>
         <p style={{ margin: 0, fontSize: '15px', color: 'var(--mute)', lineHeight: 1.5 }}>
           When the Bank runs out of houses or hotels and multiple players wish to purchase the remaining supply, the Banker must auction each available building to the highest bidder (bidding opens at ₼10). Buildings may never be traded privately between players.

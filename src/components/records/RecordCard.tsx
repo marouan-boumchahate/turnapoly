@@ -6,13 +6,13 @@ import { TwoStepDeleteButton } from './TwoStepDeleteButton';
 
 interface RecordCardProps {
   record: GameRecord;
-  accentColor: string;
+  accentColor?: string;
   onDelete: (id: string | number) => void;
 }
 
 export const RecordCard: React.FC<RecordCardProps> = ({
   record,
-  accentColor,
+  accentColor = 'red',
   onDelete,
 }) => {
   return (
@@ -20,28 +20,30 @@ export const RecordCard: React.FC<RecordCardProps> = ({
       className="mono-record-card"
       style={{
         display: 'flex',
-        gap: '12px',
+        gap: '14px',
         alignItems: 'center',
         backgroundColor: 'var(--card)',
         borderRadius: '12px',
-        padding: '12px 14px',
+        padding: '14px 18px',
         marginTop: '10px',
-        borderLeft: `8px solid var(--${accentColor})`,
+        border: '1px solid var(--border)',
+        borderLeft: `4px solid var(--${accentColor})`,
         boxShadow: 'var(--shadow-sm)',
+        transition: 'border-color var(--transition-fast)',
       }}
     >
       <div style={{ flex: 1, minWidth: 0 }}>
         <b
           style={{
             fontFamily: 'var(--font-heading)',
-            fontWeight: 600,
-            fontSize: '19px',
+            fontWeight: 700,
+            fontSize: '18px',
             color: 'var(--ink)',
             overflowWrap: 'anywhere',
             display: 'block',
           }}
         >
-          🏆 {record.n}
+          {record.n}
         </b>
         <small
           style={{
@@ -49,6 +51,7 @@ export const RecordCard: React.FC<RecordCardProps> = ({
             color: 'var(--mute)',
             fontFamily: 'var(--font-body)',
             marginTop: '2px',
+            fontSize: '13px',
           }}
         >
           {formatDisplayDateTime(record.d)}
@@ -59,9 +62,13 @@ export const RecordCard: React.FC<RecordCardProps> = ({
         style={{
           fontFamily: 'var(--font-heading)',
           fontWeight: 700,
-          fontSize: '20px',
+          fontSize: '18px',
           color: 'var(--green)',
+          backgroundColor: 'var(--green-subtle)',
+          padding: '6px 12px',
+          borderRadius: '8px',
           whiteSpace: 'nowrap',
+          letterSpacing: '0.02em',
         }}
       >
         {formatCurrency(record.m)}

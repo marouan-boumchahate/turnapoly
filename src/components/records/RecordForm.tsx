@@ -39,13 +39,14 @@ export const RecordForm: React.FC<RecordFormProps> = ({
 
   const inputStyle: React.CSSProperties = {
     fontFamily: 'var(--font-body)',
-    fontSize: '17px',
-    padding: '10px 12px',
-    borderRadius: '10px',
-    border: '2px solid #8a9a95',
+    fontSize: '16px',
+    padding: '10px 14px',
+    borderRadius: '8px',
+    border: '1px solid var(--border)',
     backgroundColor: 'var(--bg)',
     color: 'var(--ink)',
     width: '100%',
+    transition: 'border-color var(--transition-fast)',
   };
 
   return (
@@ -54,11 +55,12 @@ export const RecordForm: React.FC<RecordFormProps> = ({
       onSubmit={handleSubmit}
       style={{
         backgroundColor: 'var(--card)',
-        borderRadius: '16px',
-        padding: '16px',
+        borderRadius: '14px',
+        padding: '20px',
         display: 'grid',
-        gap: '12px',
-        borderTop: '8px solid var(--green)',
+        gap: '14px',
+        border: '1px solid var(--border)',
+        borderTop: '4px solid var(--red)',
         boxShadow: 'var(--shadow-sm)',
       }}
     >
@@ -107,15 +109,16 @@ export const RecordForm: React.FC<RecordFormProps> = ({
         className="sub-btn"
         style={{
           border: 0,
-          borderRadius: '12px',
-          padding: '11px 20px',
+          borderRadius: '10px',
+          padding: '12px 22px',
           fontFamily: 'var(--font-heading)',
           fontWeight: 700,
-          fontSize: '17px',
+          fontSize: '16px',
           backgroundColor: 'var(--red)',
           color: '#ffffff',
           cursor: 'pointer',
-          transition: 'transform var(--transition-fast)',
+          transition: 'background-color var(--transition-fast), transform var(--transition-fast)',
+          marginTop: '4px',
         }}
       >
         Save game

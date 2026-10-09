@@ -25,7 +25,7 @@ export const NoMoneyTopic: React.FC = () => {
           gap: '14px',
         }}
       >
-        <Card colorVar="pink" style={{ margin: 0 }}>
+        <Card colorVar="slate" style={{ margin: 0 }}>
           <h4 style={{ margin: '0 0 6px', fontSize: '16px' }}>Building Liquidation</h4>
           <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '14px', color: 'var(--mute)', display: 'grid', gap: '4px' }}>
             <li>Sell houses and hotels back to the Bank at 50% of printed price.</li>
@@ -34,7 +34,7 @@ export const NoMoneyTopic: React.FC = () => {
           </ul>
         </Card>
 
-        <Card colorVar="brown" style={{ margin: 0 }}>
+        <Card colorVar="slate" style={{ margin: 0 }}>
           <h4 style={{ margin: '0 0 6px', fontSize: '16px' }}>Mortgaging Properties</h4>
           <ul style={{ margin: 0, paddingLeft: '18px', fontSize: '14px', color: 'var(--mute)', display: 'grid', gap: '4px' }}>
             <li>All buildings in the color group must be liquidated first.</li>

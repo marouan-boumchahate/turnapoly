@@ -19,16 +19,18 @@ export const HeroCtaGroup: React.FC<HeroCtaGroupProps> = ({ onNavigate }) => {
     >
       <HeroCtaButton
         route="rules"
-        title="📖 Learn the rules"
-        subtitle="Step by step, easy to follow"
-        bgColor="var(--yellow)"
+        title="Official Rulebook"
+        subtitle="Interactive tournament guidelines"
+        bgColor="#ffffff"
+        textColor="#0f172a"
         onNavigate={onNavigate}
       />
       <HeroCtaButton
         route="records"
-        title="🏆 Record a game"
-        subtitle="Winner, cash left, date and time"
-        bgColor="#ffffff"
+        title="Game Records"
+        subtitle="Track winners & cash metrics"
+        bgColor="var(--green)"
+        textColor="#ffffff"
         onNavigate={onNavigate}
       />
     </div>

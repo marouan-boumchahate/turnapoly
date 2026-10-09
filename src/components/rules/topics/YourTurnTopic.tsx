@@ -15,26 +15,26 @@ export const YourTurnTopic: React.FC = () => {
         </p>
       </div>
 
-      <Card colorVar="blue">
+      <Card colorVar="slate">
         <h4 style={{ margin: '0 0 6px', fontSize: '18px' }}>Determining First Player</h4>
         <p style={{ margin: '0', color: 'var(--mute)', fontSize: '15px' }}>
           Each player rolls both dice. The highest total starts first. Turn order proceeds clockwise around the table.
         </p>
       </Card>
 
-      <Card colorVar="blue" style={{ padding: '16px 20px', marginTop: '14px' }}>
+      <Card colorVar="slate" style={{ padding: '16px 20px', marginTop: '14px' }}>
         <h4 style={{ margin: '0 0 10px', fontSize: '18px' }}>Standard Turn Phases</h4>
         <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
-          <NumberedStep stepNumber={1} colorVar="blue">
+          <NumberedStep stepNumber={1} colorVar="slate">
             <b>Roll Both Dice:</b> Roll the two dice simultaneously onto the board.
           </NumberedStep>
-          <NumberedStep stepNumber={2} colorVar="blue">
+          <NumberedStep stepNumber={2} colorVar="slate">
             <b>Advance Clockwise:</b> Move your token forward by the sum of the dice.
           </NumberedStep>
-          <NumberedStep stepNumber={3} colorVar="blue">
+          <NumberedStep stepNumber={3} colorVar="slate">
             <b>Execute Space Action:</b> Comply with the directives of the destination space (pay rent, purchase, draw a card, or pay taxes).
           </NumberedStep>
-          <NumberedStep stepNumber={4} colorVar="blue">
+          <NumberedStep stepNumber={4} colorVar="slate">
             <b>Pass Dice:</b> Conclude your turn and hand the dice to the player to your left.
           </NumberedStep>
         </ol>

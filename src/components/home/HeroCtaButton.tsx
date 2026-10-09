@@ -6,6 +6,7 @@ interface HeroCtaButtonProps {
   title: string;
   subtitle: string;
   bgColor: string;
+  textColor?: string;
   onNavigate: (route: AppRoute) => void;
 }
 
@@ -14,6 +15,7 @@ export const HeroCtaButton: React.FC<HeroCtaButtonProps> = ({
   title,
   subtitle,
   bgColor,
+  textColor = '#0f172a',
   onNavigate,
 }) => {
   return (
@@ -24,10 +26,13 @@ export const HeroCtaButton: React.FC<HeroCtaButtonProps> = ({
         onNavigate(route);
       }}
       className="hero-cta-btn"
-      style={{ backgroundColor: bgColor }}
+      style={{
+        backgroundColor: bgColor,
+        color: textColor,
+      }}
     >
       <span>{title}</span>
-      <small>{subtitle}</small>
+      <small style={{ opacity: 0.85 }}>{subtitle}</small>
     </a>
   );
 };

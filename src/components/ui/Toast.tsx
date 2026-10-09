@@ -16,22 +16,21 @@ export const Toast: React.FC<ToastProps> = ({ message, type = 'success' }) => {
         bottom: '24px',
         left: '50%',
         transform: 'translateX(-50%)',
-        backgroundColor: type === 'success' ? 'var(--green)' : 'var(--blue)',
+        backgroundColor: type === 'success' ? 'var(--green)' : 'var(--ink)',
         color: '#ffffff',
-        padding: '10px 20px',
+        padding: '10px 22px',
         borderRadius: '99px',
         fontFamily: 'var(--font-heading)',
         fontWeight: 600,
-        fontSize: '15px',
+        fontSize: '14px',
         boxShadow: 'var(--shadow-md)',
         zIndex: 100,
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
-        animation: 'fadeIn 0.2s ease',
       }}
     >
-      <span>{type === 'success' ? '✓' : 'ℹ'}</span>
+      <span>{type === 'success' ? '✓' : '•'}</span>
       <span>{message}</span>
     </div>
   );

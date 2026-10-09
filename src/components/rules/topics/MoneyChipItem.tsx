@@ -14,7 +14,7 @@ export const MoneyChipItem: React.FC<MoneyChipItemProps> = ({ chip }) => {
         padding: '10px 8px',
         border: '1px solid var(--border)',
         backgroundColor: 'var(--card)',
-        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.03)',
+        boxShadow: 'var(--shadow-sm)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
@@ -29,7 +29,8 @@ export const MoneyChipItem: React.FC<MoneyChipItemProps> = ({ chip }) => {
           color: 'var(--ink)',
         }}
       >
-        ₼{chip.denomination}
+        <span style={{ color: 'var(--green)', marginRight: '2px' }}>₼</span>
+        {chip.denomination}
       </span>
       <span
         style={{
@@ -37,7 +38,7 @@ export const MoneyChipItem: React.FC<MoneyChipItemProps> = ({ chip }) => {
           fontWeight: 600,
           fontSize: '12px',
           color: 'var(--mute)',
-          backgroundColor: 'rgba(0, 0, 0, 0.04)',
+          backgroundColor: 'var(--card-subtle)',
           padding: '2px 8px',
           borderRadius: '4px',
         }}

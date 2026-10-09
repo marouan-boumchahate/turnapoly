@@ -13,7 +13,7 @@ export const DealsTopic: React.FC = () => {
         </p>
       </div>
 
-      <Card colorVar="yellow">
+      <Card colorVar="amber">
         <h4 style={{ margin: '0 0 8px', fontSize: '18px' }}>Trade Guidelines</h4>
         <ul style={{ margin: 0, paddingLeft: '20px', display: 'grid', gap: '6px', fontSize: '15px' }}>
           <li>
@@ -31,7 +31,7 @@ export const DealsTopic: React.FC = () => {
         </ul>
       </Card>
 
-      <Card colorVar="yellow" style={{ marginTop: '14px' }}>
+      <Card colorVar="slate" style={{ marginTop: '14px' }}>
         <h4 style={{ margin: '0 0 6px', fontSize: '18px' }}>Transferring Mortgaged Properties</h4>
         <p style={{ margin: 0, fontSize: '15px', color: 'var(--mute)', lineHeight: 1.5 }}>
           Mortgaged deeds may be traded between players at whatever price is agreed upon. The new owner must immediately pay the Bank 10% interest on the mortgage value, and may either unmortgage the property immediately by paying the full principal, or hold it mortgaged and pay another 10% penalty when lifting it later.

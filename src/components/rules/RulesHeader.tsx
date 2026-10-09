@@ -14,7 +14,7 @@ export const RulesHeader: React.FC = () => {
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
           color: 'var(--red)',
-          backgroundColor: 'rgba(214, 32, 46, 0.08)',
+          backgroundColor: 'var(--red-subtle)',
           padding: '4px 10px',
           borderRadius: '99px',
           marginBottom: '8px',

@@ -21,13 +21,13 @@ export const RecordsStatsRow: React.FC<RecordsStatsRowProps> = ({ stats }) => {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(3, 1fr)',
-        gap: '10px',
-        margin: '16px 0',
+        gap: '12px',
+        margin: '18px 0',
       }}
     >
-      <StatBox value={stats.totalGames} label="Games" />
-      <StatBox value={topWinnerDisplay} label="Top winner" />
-      <StatBox value={mostCashDisplay} label="Most cash left" />
+      <StatBox value={stats.totalGames} label="Total Games" valueColor="var(--ink)" />
+      <StatBox value={topWinnerDisplay} label="Top Winner" valueColor="var(--red)" />
+      <StatBox value={mostCashDisplay} label="Most Cash Left" valueColor="var(--green)" />
     </div>
   );
 };

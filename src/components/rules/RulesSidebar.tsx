@@ -29,13 +29,13 @@ export const RulesSidebar: React.FC<RulesSidebarProps> = ({
         padding: '16px',
         borderRadius: '14px',
         border: '1px solid var(--border)',
-        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
+        boxShadow: 'var(--shadow-sm)',
       }}
     >
       <div
         style={{
           fontFamily: 'var(--font-heading)',
-          fontSize: '12px',
+          fontSize: '11px',
           fontWeight: 700,
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
@@ -61,14 +61,14 @@ export const RulesSidebar: React.FC<RulesSidebarProps> = ({
               padding: '10px 12px',
               borderRadius: '8px',
               border: 'none',
-              backgroundColor: isActive ? 'rgba(214, 32, 46, 0.08)' : 'transparent',
+              backgroundColor: isActive ? 'var(--red-subtle)' : 'transparent',
               color: isActive ? 'var(--red)' : 'var(--ink)',
               fontFamily: 'var(--font-body)',
               fontWeight: isActive ? 700 : 600,
               fontSize: '14px',
               cursor: 'pointer',
               textAlign: 'left',
-              transition: 'background-color var(--transition-fast)',
+              transition: 'all var(--transition-fast)',
               width: '100%',
             }}
           >
@@ -78,7 +78,7 @@ export const RulesSidebar: React.FC<RulesSidebarProps> = ({
                 fontSize: '11px',
                 fontWeight: 700,
                 color: isActive ? 'var(--red)' : 'var(--mute)',
-                opacity: 0.8,
+                opacity: 0.85,
                 width: '18px',
               }}
             >

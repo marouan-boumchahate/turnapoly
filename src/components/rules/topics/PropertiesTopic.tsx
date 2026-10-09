@@ -22,14 +22,14 @@ export const PropertiesTopic: React.FC = () => {
           gap: '14px',
         }}
       >
-        <Card colorVar="brown" style={{ margin: 0 }}>
+        <Card colorVar="slate" style={{ margin: 0 }}>
           <h4 style={{ margin: '0 0 6px', fontSize: '17px' }}>Unowned Property</h4>
           <p style={{ margin: 0, fontSize: '15px', color: 'var(--mute)', lineHeight: 1.5 }}>
             Purchase at the printed board price and claim the Title Deed, or decline purchase to trigger an immediate public auction.
           </p>
         </Card>
 
-        <Card colorVar="brown" style={{ margin: 0 }}>
+        <Card colorVar="slate" style={{ margin: 0 }}>
           <h4 style={{ margin: '0 0 6px', fontSize: '17px' }}>Owned Property</h4>
           <p style={{ margin: 0, fontSize: '15px', color: 'var(--mute)', lineHeight: 1.5 }}>
             The owner must verbally demand rent before the next player rolls the dice. If they fail to claim before the roll, the debt is permanently forfeited.
@@ -37,7 +37,7 @@ export const PropertiesTopic: React.FC = () => {
         </Card>
       </div>
 
-      <Card colorVar="orange" style={{ marginTop: '14px' }}>
+      <Card colorVar="amber" style={{ marginTop: '14px' }}>
         <h4 style={{ margin: '0 0 8px', fontSize: '18px' }}>Official Auction Procedure</h4>
         <ul style={{ margin: 0, paddingLeft: '20px', display: 'grid', gap: '6px', fontSize: '15px' }}>
           <li>The Banker officiates all bidding. Every participant may bid, including the player who declined purchase.</li>
