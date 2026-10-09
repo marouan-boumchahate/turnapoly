@@ -41,8 +41,9 @@ export const RecordsView: React.FC = () => {
     showToast('Game record deleted.');
   };
 
-  const handleAuthSubmit = (passcode: string) => {
-    if (loginAsOwner(passcode)) {
+  const handleAuthSubmit = async (passcode: string) => {
+    const success = await loginAsOwner(passcode);
+    if (success) {
       setIsAuthModalOpen(false);
       showToast('Owner access granted! 👑');
     }
