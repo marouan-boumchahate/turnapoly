@@ -4,13 +4,12 @@ import { RulesSidebar } from './RulesSidebar';
 import { RulesTabsBar } from './RulesTabsBar';
 import { RulesTopicRenderer } from './RulesTopicRenderer';
 import { RulesBottomNav } from './RulesBottomNav';
-import { ProgressBar } from '../ui/ProgressBar';
 import { useRulesNavigation } from '../../hooks/useRulesNavigation';
 import { RULES_TOPICS } from '../../data/rulesTopicsData';
 import '../../styles/rules.css';
 
 export const RulesView: React.FC = () => {
-  const { activeIndex, activeTopic, isFirst, isLast, goToIndex, goToNext, goToPrev } =
+  const { activeIndex, isFirst, isLast, goToIndex, goToNext, goToPrev } =
     useRulesNavigation();
 
   const prevTopic = !isFirst ? RULES_TOPICS[activeIndex - 1] : undefined;
@@ -18,11 +17,6 @@ export const RulesView: React.FC = () => {
 
   return (
     <Container id="rules" size="wide">
-      <ProgressBar
-        current={activeIndex}
-        total={RULES_TOPICS.length}
-        colorVar={activeTopic.colorVar}
-      />
 
       {/* Mobile Horizontal Tabs */}
       <div className="rules-mobile-tabs-container">
