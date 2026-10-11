@@ -9,10 +9,14 @@ import { loadFromStorage } from '../utils/storage';
 export async function fetchCloudRecords(): Promise<GameRecord[] | null> {
   try {
     const res = await fetch('/api/records', { cache: 'no-store' });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      console.warn('Fetch cloud records returned status', res.status);
+      return null;
+    }
     const data = await res.json();
     return Array.isArray(data) ? data : null;
-  } catch {
+  } catch (err) {
+    console.warn('Fetch cloud records error:', err);
     return null;
   }
 }
@@ -36,8 +40,14 @@ export async function syncRecordsToFile(records: GameRecord[]): Promise<boolean>
       headers,
       body: JSON.stringify(records),
     });
-    return response.ok;
-  } catch {
+    if (!response.ok) {
+      const errText = await response.text();
+      console.warn('Sync to cloud failed:', response.status, errText);
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.warn('Sync to cloud error:', err);
     return false;
   }
 }
