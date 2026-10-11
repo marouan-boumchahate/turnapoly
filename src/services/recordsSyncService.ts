@@ -1,5 +1,9 @@
 import { GameRecord } from '../types/record';
-import { STORAGE_KEY_OWNER_TOKEN } from '../constants/ownerAuth';
+import {
+  DEFAULT_OWNER_HASH,
+  STORAGE_KEY_OWNER_AUTH,
+  STORAGE_KEY_OWNER_TOKEN,
+} from '../constants/ownerAuth';
 import { loadFromStorage } from '../utils/storage';
 
 export async function fetchCloudRecords(): Promise<GameRecord[] | null> {
@@ -15,7 +19,13 @@ export async function fetchCloudRecords(): Promise<GameRecord[] | null> {
 
 export async function syncRecordsToFile(records: GameRecord[]): Promise<boolean> {
   try {
-    const token = loadFromStorage<string | null>(STORAGE_KEY_OWNER_TOKEN, null);
+    let token = loadFromStorage<string | null>(STORAGE_KEY_OWNER_TOKEN, null);
+    const isAuthed = loadFromStorage<boolean>(STORAGE_KEY_OWNER_AUTH, false);
+
+    if (!token && isAuthed) {
+      token = DEFAULT_OWNER_HASH;
+    }
+
     const headers: Record<string, string> = { 'Content-Type': 'application/json' };
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;

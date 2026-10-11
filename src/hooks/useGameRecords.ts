@@ -20,6 +20,7 @@ export function useGameRecords() {
     fetchCloudRecords().then((cloudRecords) => {
       if (isMounted && cloudRecords !== null) {
         setGames(cloudRecords);
+        saveToStorage(STORAGE_KEY_GAMES, cloudRecords);
       }
     });
     return () => {
@@ -27,22 +28,26 @@ export function useGameRecords() {
     };
   }, []);
 
-  // Sync to local storage and remote cloud storage on changes
-  useEffect(() => {
-    saveToStorage(STORAGE_KEY_GAMES, games);
-    syncRecordsToFile(games);
-  }, [games]);
-
   const addGame = useCallback((newGame: Omit<GameRecord, 'id'>) => {
     const record: GameRecord = {
       ...newGame,
       id: Date.now(),
     };
-    setGames((prev) => [record, ...prev]);
+    setGames((prev) => {
+      const updated = [record, ...prev];
+      saveToStorage(STORAGE_KEY_GAMES, updated);
+      syncRecordsToFile(updated);
+      return updated;
+    });
   }, []);
 
   const deleteGame = useCallback((id: string | number) => {
-    setGames((prev) => prev.filter((item) => item.id !== id));
+    setGames((prev) => {
+      const updated = prev.filter((item) => item.id !== id);
+      saveToStorage(STORAGE_KEY_GAMES, updated);
+      syncRecordsToFile(updated);
+      return updated;
+    });
   }, []);
 
   return { games, addGame, deleteGame };

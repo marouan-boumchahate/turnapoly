@@ -23,6 +23,24 @@ function sendJson(res: JsonServerResponse, statusCode: number, data: unknown) {
   res.end(JSON.stringify(data));
 }
 
+function getBlobToken(): string | undefined {
+  if (process.env.BLOB_READ_WRITE_TOKEN) {
+    return process.env.BLOB_READ_WRITE_TOKEN;
+  }
+  for (const [key, val] of Object.entries(process.env)) {
+    if (key.endsWith('_READ_WRITE_TOKEN') || key.endsWith('_BLOB_TOKEN')) {
+      return val;
+    }
+  }
+  return undefined;
+}
+
+function hasBlobCredentials(): boolean {
+  if (process.env.BLOB_STORE_ID) return true;
+  if (getBlobToken()) return true;
+  return false;
+}
+
 function verifyOwner(authHeader: string | undefined): boolean {
   if (!authHeader) return false;
   const token = authHeader.replace(/^Bearer\s+/i, '').trim();
@@ -43,12 +61,15 @@ export default async function handler(
 ) {
   // GET: Fetch records from Vercel Blob
   if (req.method === 'GET') {
-    try {
-      if (!process.env.BLOB_READ_WRITE_TOKEN) {
-        return sendJson(res, 200, []);
-      }
+    if (!hasBlobCredentials()) {
+      return sendJson(res, 200, []);
+    }
 
-      const { blobs } = await list({ prefix: 'gameRecords.json' });
+    try {
+      const token = getBlobToken();
+      const options = token ? { token } : {};
+      const { blobs } = await list({ prefix: 'gameRecords.json', ...options });
+
       if (!blobs || blobs.length === 0) {
         return sendJson(res, 200, []);
       }
@@ -75,13 +96,14 @@ export default async function handler(
       });
     }
 
-    try {
-      if (!process.env.BLOB_READ_WRITE_TOKEN) {
-        return sendJson(res, 500, {
-          error: 'Vercel Blob Storage is not connected. Add Blob under Storage in Vercel.',
-        });
-      }
+    if (!hasBlobCredentials()) {
+      return sendJson(res, 500, {
+        error:
+          'No Vercel Blob credentials found. Neither BLOB_STORE_ID nor BLOB_READ_WRITE_TOKEN is set.',
+      });
+    }
 
+    try {
       let payload = req.body;
       if (typeof payload === 'string') {
         try {
@@ -91,14 +113,19 @@ export default async function handler(
         }
       }
 
-      const records = Array.isArray(payload) ? payload : (payload as { records?: unknown[] })?.records;
+      const records = Array.isArray(payload)
+        ? payload
+        : (payload as { records?: unknown[] })?.records;
       if (!Array.isArray(records)) {
         return sendJson(res, 400, { error: 'Payload must be an array of records' });
       }
 
+      const token = getBlobToken();
+      const options = token ? { token } : {};
       const blob = await put('gameRecords.json', JSON.stringify(records, null, 2), {
         access: 'public',
         addRandomSuffix: false,
+        ...options,
       });
 
       return sendJson(res, 200, {
@@ -106,8 +133,11 @@ export default async function handler(
         count: records.length,
         url: blob.url,
       });
-    } catch {
-      return sendJson(res, 500, { error: 'Failed to write to Vercel Blob' });
+    } catch (err) {
+      return sendJson(res, 500, {
+        error: 'Failed to write to Vercel Blob',
+        detail: err instanceof Error ? err.message : String(err),
+      });
     }
   }
 
