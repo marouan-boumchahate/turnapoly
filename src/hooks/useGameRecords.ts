@@ -18,9 +18,16 @@ export function useGameRecords() {
   useEffect(() => {
     let isMounted = true;
     fetchCloudRecords().then((cloudRecords) => {
-      if (isMounted && cloudRecords !== null) {
+      if (!isMounted || cloudRecords === null) return;
+
+      if (cloudRecords.length > 0) {
         setGames(cloudRecords);
         saveToStorage(STORAGE_KEY_GAMES, cloudRecords);
+      } else {
+        const local = loadFromStorage<GameRecord[] | null>(STORAGE_KEY_GAMES, null);
+        if (local && Array.isArray(local) && local.length > 0) {
+          syncRecordsToFile(local);
+        }
       }
     });
     return () => {
