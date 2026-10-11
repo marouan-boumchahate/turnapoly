@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import crypto from 'node:crypto';
-import { put, list } from '@vercel/blob';
+import { put, get, list } from '@vercel/blob';
 
 const DEFAULT_OWNER_HASH =
   process.env.VITE_OWNER_PASSCODE_HASH ||
@@ -95,42 +95,144 @@ async function parseBody(req: IncomingMessage & { body?: unknown }): Promise<unk
   });
 }
 
+async function readBlobRecords(token?: string): Promise<unknown[] | null> {
+  const options = token ? { token } : {};
+
+  // Try reading private store first (user's setting)
+  try {
+    const result = await get('gameRecords.json', { access: 'private', ...options });
+    if (result && result.stream) {
+      const text = await new Response(result.stream).text();
+      return JSON.parse(text);
+    }
+    if (result === null) {
+      return [];
+    }
+  } catch {
+    // Fallback to public get
+    try {
+      const result = await get('gameRecords.json', { access: 'public', ...options });
+      if (result && result.stream) {
+        const text = await new Response(result.stream).text();
+        return JSON.parse(text);
+      }
+      if (result === null) {
+        return [];
+      }
+    } catch {
+      // Fallback to list()
+      try {
+        const { blobs } = await list({ prefix: 'gameRecords.json', ...options });
+        if (!blobs || blobs.length === 0) return [];
+        const sortedBlobs = [...blobs].sort(
+          (a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
+        );
+        const res = await fetch(sortedBlobs[0].url, { cache: 'no-store' });
+        if (res.ok) return await res.json();
+      } catch {
+        return null;
+      }
+    }
+  }
+  return [];
+}
+
+async function writeBlobRecords(records: unknown[], token?: string): Promise<{ url: string }> {
+  const options = token ? { token } : {};
+  const jsonContent = JSON.stringify(records, null, 2);
+
+  // Try private store first
+  try {
+    const blob = await put('gameRecords.json', jsonContent, {
+      access: 'private',
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      ...options,
+    });
+    return { url: blob.url };
+  } catch (errPrivate) {
+    // Fallback to public store
+    try {
+      const blob = await put('gameRecords.json', jsonContent, {
+        access: 'public',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        ...options,
+      });
+      return { url: blob.url };
+    } catch (errPublic) {
+      throw new Error(
+        `Failed to write blob (private: ${(errPrivate as Error).message}, public: ${(errPublic as Error).message})`
+      );
+    }
+  }
+}
+
+// Web Standard Export (Next.js / Edge / Modern Vercel Functions)
+export async function GET() {
+  if (!hasBlobCredentials()) {
+    return Response.json([], { status: 200 });
+  }
+  const token = getBlobToken();
+  const records = await readBlobRecords(token);
+  return Response.json(records || [], {
+    status: 200,
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0',
+      Pragma: 'no-cache',
+    },
+  });
+}
+
+export async function POST(request: Request) {
+  const authHeader = request.headers.get('authorization') || undefined;
+  if (!verifyOwner(authHeader)) {
+    return Response.json(
+      { error: 'Unauthorized: Only the application owner can save records' },
+      { status: 401 }
+    );
+  }
+
+  if (!hasBlobCredentials()) {
+    return Response.json(
+      { error: 'No Vercel Blob credentials found. BLOB_STORE_ID or BLOB_READ_WRITE_TOKEN required.' },
+      { status: 500 }
+    );
+  }
+
+  try {
+    const payload = await request.json();
+    const records = Array.isArray(payload) ? payload : (payload as { records?: unknown[] })?.records;
+    if (!Array.isArray(records)) {
+      return Response.json({ error: 'Payload must be an array of records' }, { status: 400 });
+    }
+
+    const token = getBlobToken();
+    const result = await writeBlobRecords(records, token);
+    return Response.json({ success: true, count: records.length, url: result.url }, { status: 200 });
+  } catch (err) {
+    return Response.json(
+      { error: err instanceof Error ? err.message : String(err) },
+      { status: 500 }
+    );
+  }
+}
+
+// Node.js Default Export (Classic Vercel Serverless Functions)
 export default async function handler(
-  req: IncomingMessage & { body?: unknown },
+  req: IncomingMessage & { body?: unknown; method?: string; headers: Record<string, string | undefined> },
   res: JsonServerResponse
 ) {
-  // GET: Fetch records from Vercel Blob
   if (req.method === 'GET') {
     if (!hasBlobCredentials()) {
       return sendJson(res, 200, []);
     }
-
-    try {
-      const token = getBlobToken();
-      const options = token ? { token } : {};
-      const { blobs } = await list({ prefix: 'gameRecords.json', ...options });
-
-      if (!blobs || blobs.length === 0) {
-        return sendJson(res, 200, []);
-      }
-
-      const sortedBlobs = [...blobs].sort(
-        (a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime()
-      );
-      const blobUrl = sortedBlobs[0].url;
-      const remoteRes = await fetch(blobUrl, { cache: 'no-store' });
-      if (!remoteRes.ok) {
-        return sendJson(res, 200, []);
-      }
-
-      const records = await remoteRes.json();
-      return sendJson(res, 200, records);
-    } catch {
-      return sendJson(res, 200, []);
-    }
+    const token = getBlobToken();
+    const records = await readBlobRecords(token);
+    return sendJson(res, 200, records || []);
   }
 
-  // POST: Save records to Vercel Blob (Owner authenticated only)
   if (req.method === 'POST') {
     const isOwner = verifyOwner(req.headers['authorization']);
     if (!isOwner) {
@@ -142,7 +244,7 @@ export default async function handler(
     if (!hasBlobCredentials()) {
       return sendJson(res, 500, {
         error:
-          'No Vercel Blob credentials found. Ensure BLOB_STORE_ID or BLOB_READ_WRITE_TOKEN is set.',
+          'No Vercel Blob credentials found. BLOB_STORE_ID or BLOB_READ_WRITE_TOKEN required.',
       });
     }
 
@@ -157,23 +259,15 @@ export default async function handler(
       }
 
       const token = getBlobToken();
-      const options = token ? { token } : {};
-      const blob = await put('gameRecords.json', JSON.stringify(records, null, 2), {
-        access: 'public',
-        addRandomSuffix: false,
-        allowOverwrite: true,
-        ...options,
-      });
-
+      const result = await writeBlobRecords(records, token);
       return sendJson(res, 200, {
         success: true,
         count: records.length,
-        url: blob.url,
+        url: result.url,
       });
     } catch (err) {
       return sendJson(res, 500, {
-        error: 'Failed to write to Vercel Blob',
-        detail: err instanceof Error ? err.message : String(err),
+        error: err instanceof Error ? err.message : String(err),
       });
     }
   }
